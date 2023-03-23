@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dzimšanas diena</title>
+  <link rel="stylesheet" type="text/css" href="css/stils.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+
+  <h2> Gaidot dzimšanas dienu</h2>
+  <hr>
+  <form> 
+  <legend>Ievadi pilnu datumu, kad Tev būs tuvākā dzimšanas diena:</legend>
+  <table>
+	<tr>
+	  <td>
+	    <label>Gads:</label> 
+      </td>
+	  <td>
+	    <input type="text" name="gads">
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+		<label>Mēnesis:</label>
+	  </td>
+	  <td>
+	    <input type="text" name="menesis">
+	  </td>
+	</tr>
+	<tr>  
+	  <td>
+	    <label>Diena: </label>
+	  </td>
+	  <td>	
+	    <input type="text" name="diena">
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    <input type="button" name="poga" value="Aprēķināt dienu skaitu līdz dzimšanas dienai" onclick="fdienas()">
+	  <td>
+	</tr>
+  </table>
+  <p>Līdz svētkiem atlikušas <input type = "text" name="dienas"> dienas  :  )) </p>
+  </form>
+</body>
+</html>
+
+
+<script>
+  function fdienas() {
+ 
+
+    var gads = document.getElementsByName("gads")[0].value;
+    var menesis = document.getElementsByName("menesis")[0].value;
+    var diena = document.getElementsByName("diena")[0].value;
+	
+   if (gads == "" || menesis == "" || diena == "") {
+	  alert("Ievadiet datus");
+	  return;
+	}
+
+
+    if (parseInt(diena) > 31 ||  parseInt(menesis) > 12 ||
+	   parseInt(diena) < 0  ||  parseInt(menesis) < 0 || parseInt(gads) < 0) {
+	  alert("Dati ievadīti nepareizi");
+	  return;
+	}
+
+
+	var date_1 = new Date(menesis + "/" + diena + "/" + gads);
+    var date_2 = new Date();
+	
+	
+	var difference = date_1.getTime() - date_2.getTime();
+	
+	if (difference < 0) {
+	  alert("Ievadiet dzimšanas dienu, kas vēl būs");
+	  return;	
+	}
+	
+	document.getElementsByName("dienas")[0].value = Math.ceil(difference / (1000 * 3600 * 24));
+  }
+</script>
